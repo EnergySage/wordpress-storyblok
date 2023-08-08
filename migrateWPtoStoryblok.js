@@ -87,6 +87,15 @@ const handleShortcode = async (block) => {
     } else if (block.innerContent[0].includes('[table id=')) {
         const tableId = block.innerContent[0].match(/table id=(\d+)/)[1]
         return tableIdToBlockData[tableId]
+    } else if (
+        // Home solar content CTAs
+        block.innerContent[0].includes('zip_cta') ||
+        block.innerContent[0].includes('zip_cta_top') ||
+        block.innerContent[0].includes('zip_cta_bottom')) {
+        return {
+            component: 'ArticleCtaBanner',
+            reference: '09b093dd-1fd4-45b7-b62f-46f1bf47f3a1', // Dev > Global > Components > Cta Banners > Home solar
+        }
     } else {
         console.error(`handleShortcode got unexpected shortcode type ${block.innerContent[0]}`)
     }
