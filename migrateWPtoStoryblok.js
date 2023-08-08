@@ -88,6 +88,23 @@ const handleShortcode = async (block) => {
         const tableId = block.innerContent[0].match(/table id=(\d+)/)[1]
         return tableIdToBlockData[tableId]
     } else if (
+        // Community solar content CTAs
+        block.innerContent[0].includes('cs-bottom-non-widget') ||
+        block.innerContent[0].includes('cs_cta_bottom') ||
+        block.innerContent[0].includes('cs_cta_top') ||
+        block.innerContent[0].includes('cs-top-non-widget')) {
+        return {
+            component: 'ArticleCtaBanner',
+            reference: '5143ed5c-2b0c-4c62-b013-823cdbe3abcd', // Dev > Global > Components > Cta Banners > Community solar
+        }
+    } else if (
+        // Heat pump content CTAs
+        block.innerContent[0].includes('heatpump_cta')) {
+        return {
+            component: 'ArticleCtaBanner',
+            reference: '60e49db1-2180-4747-a956-8b303b6426ca', // Dev > Global > Components > Cta Banners > Heat pumps
+        }
+    } else if (
         // Home solar content CTAs
         block.innerContent[0].includes('zip_cta') ||
         block.innerContent[0].includes('zip_cta_top') ||
