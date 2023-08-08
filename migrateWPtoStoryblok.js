@@ -370,6 +370,15 @@ const getArticleToc = (data) => {
     }]
 }
 
+const getSidebarCta = (data) => {
+    // Home solar sidebar CTA
+    return [{
+        component: 'ArticleVerticalCta',
+        reference: 'aa32f79b-511e-4174-ae1b-a33dac21f199', // Dev > Global > Components > Vertical Cta Cards > Home solar vertical
+        mobileOnly: false,
+    }]
+}
+
 const getFolder = (wp_entry) => {
     const entryData = old_slug_to_data[wp_entry.slug]
     return entryData.folder
@@ -447,6 +456,7 @@ const wp2storyblok = new Wp2Storyblok(`${process.env.WP_BASE_URL}/wp-json`, slug
                 [getArticleEeat, "content.articleEeat"],
                 [getArticleToc, "content.articleTableOfContents"],
                 ["block_data", "content.body"],
+                [getSidebarCta, "content.sidebarCta"],
             ]),
         },
     ]
