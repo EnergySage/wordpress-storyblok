@@ -88,6 +88,16 @@ const handleShortcode = async (block) => {
         const tableId = block.innerContent[0].match(/table id=(\d+)/)[1]
         return tableIdToBlockData[tableId]
     } else if (
+        // Backup power content CTAs
+        block.innerContent[0].includes('external_cta_test') ||
+        block.innerContent[0].includes('html_bullet_cta') ||
+        block.innerContent[0].includes('storage_cta_bottom') ||
+        block.innerContent[0].includes('storage_cta_top')) {
+        return {
+            component: 'ArticleCtaBanner',
+            reference: '87a5a398-eb0c-4abe-8011-9b9b63575e2e', // Dev > Global > Components > Cta Banners > Backup power
+        }
+    } else if (
         // Community solar content CTAs
         block.innerContent[0].includes('cs-bottom-non-widget') ||
         block.innerContent[0].includes('cs_cta_bottom') ||
