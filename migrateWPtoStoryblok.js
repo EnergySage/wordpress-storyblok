@@ -87,6 +87,42 @@ const handleShortcode = async (block) => {
     } else if (block.innerContent[0].includes('[table id=')) {
         const tableId = block.innerContent[0].match(/table id=(\d+)/)[1]
         return tableIdToBlockData[tableId]
+    } else if (
+        // Backup power content CTAs
+        block.innerContent[0].includes('external_cta_test') ||
+        block.innerContent[0].includes('html_bullet_cta') ||
+        block.innerContent[0].includes('storage_cta_bottom') ||
+        block.innerContent[0].includes('storage_cta_top')) {
+        return {
+            component: 'ArticleCtaBanner',
+            reference: '87a5a398-eb0c-4abe-8011-9b9b63575e2e', // Dev > Global > Components > Cta Banners > Backup power
+        }
+    } else if (
+        // Community solar content CTAs
+        block.innerContent[0].includes('cs-bottom-non-widget') ||
+        block.innerContent[0].includes('cs_cta_bottom') ||
+        block.innerContent[0].includes('cs_cta_top') ||
+        block.innerContent[0].includes('cs-top-non-widget')) {
+        return {
+            component: 'ArticleCtaBanner',
+            reference: '5143ed5c-2b0c-4c62-b013-823cdbe3abcd', // Dev > Global > Components > Cta Banners > Community solar
+        }
+    } else if (
+        // Heat pump content CTAs
+        block.innerContent[0].includes('heatpump_cta')) {
+        return {
+            component: 'ArticleCtaBanner',
+            reference: '60e49db1-2180-4747-a956-8b303b6426ca', // Dev > Global > Components > Cta Banners > Heat pumps
+        }
+    } else if (
+        // Home solar content CTAs
+        block.innerContent[0].includes('zip_cta') ||
+        block.innerContent[0].includes('zip_cta_top') ||
+        block.innerContent[0].includes('zip_cta_bottom')) {
+        return {
+            component: 'ArticleCtaBanner',
+            reference: '09b093dd-1fd4-45b7-b62f-46f1bf47f3a1', // Dev > Global > Components > Cta Banners > Home solar
+        }
     } else {
         console.error(`handleShortcode got unexpected shortcode type ${block.innerContent[0]}`)
     }
@@ -361,6 +397,15 @@ const getArticleToc = (data) => {
     }]
 }
 
+const getSidebarCta = (data) => {
+    // Home solar sidebar CTA
+    return [{
+        component: 'ArticleVerticalCta',
+        reference: 'aa32f79b-511e-4174-ae1b-a33dac21f199', // Dev > Global > Components > Vertical Cta Cards > Home solar vertical
+        mobileOnly: false,
+    }]
+}
+
 const getFolder = (wp_entry) => {
     const entryData = old_slug_to_data[wp_entry.slug]
     return entryData.folder
@@ -438,6 +483,7 @@ const wp2storyblok = new Wp2Storyblok(`${process.env.WP_BASE_URL}/wp-json`, slug
                 [getArticleEeat, "content.articleEeat"],
                 [getArticleToc, "content.articleTableOfContents"],
                 ["block_data", "content.body"],
+                [getSidebarCta, "content.sidebarCta"],
             ]),
         },
     ]
